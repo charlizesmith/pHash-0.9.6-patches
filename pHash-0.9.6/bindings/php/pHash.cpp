@@ -66,6 +66,11 @@ extern "C" void ph_image_hash_dtor(zend_rsrc_list_entry *rsrc TSRMLS_DC)
 
 	if(resource)
 		free(resource);
+	
+	uint8_t * resource = (uint8_t *)(rsrc->ptr);
+
+	if(resource)
+		free(resource);
 }
 
 int le_ph_audio_hash;
@@ -101,6 +106,7 @@ zend_function_entry pHash_functions[] = {
 #endif /* HAVE_VIDEO_HASH */
 #if HAVE_IMAGE_HASH
 	PHP_FE(ph_dct_imagehash    , ph_dct_imagehash_arg_info)
+	PHP_FE(ph_mh_imagehash    , ph_mh_imagehash_arg_info)
 #endif /* HAVE_IMAGE_HASH */
 	PHP_FE(ph_texthash         , ph_texthash_arg_info)
 #if HAVE_AUDIO_HASH
@@ -297,6 +303,39 @@ PHP_FUNCTION(ph_dct_imagehash)
 	}
 }
 /* }}} ph_dct_imagehash */
+
+/* {{{ proto long ph_image_hash ph_mh_imagehash(string file)
+  pHash mh image hash */
+PHP_FUNCTION(ph_mh_imagehash)
+{
+	uint8_t * return_res;
+	long return_res_id = -1;
+
+	const char * file = NULL;
+	int file_len = 0;
+	char buffer [64];
+	int n;
+	char *str;
+
+
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &file, &file_len) == FAILURE) {
+		return;
+	}
+
+	uint8_t *hash = (uint8_t *)malloc(sizeof(uint8_t));
+	int ret = ph_mh_imagehash(file, *hash);
+	if(ret != 0) {
+		free(hash);
+		RETURN_FALSE;
+	} else {
+		n = sprintf(buffer, "%016llx", *hash);
+		str = estrdup(buffer);
+		free(hash);
+		RETURN_STRING(str, 0);
+	}
+}
+/* }}} ph_mh_imagehash */
 
 #endif /* HAVE_IMAGE_HASH */
 
