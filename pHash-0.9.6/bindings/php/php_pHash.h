@@ -108,6 +108,16 @@ ZEND_END_ARG_INFO()
 #define ph_texthash_arg_info NULL
 #endif
 
+#if HAVE_IMAGE_HASH
+PHP_FUNCTION(ph_mh_imagehash);
+#if (PHP_MAJOR_VERSION >= 5)
+ZEND_BEGIN_ARG_INFO_EX(ph_mh_imagehash_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
+  ZEND_ARG_INFO(0, file)
+ZEND_END_ARG_INFO()
+#else /* PHP 4.x */
+#define ph_mh_imagehash_arg_info NULL
+#endif   
+   
 #if HAVE_AUDIO_HASH
 PHP_FUNCTION(ph_audiohash);
 #if (PHP_MAJOR_VERSION >= 5)
