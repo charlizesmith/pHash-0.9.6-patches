@@ -30,6 +30,11 @@
  </deps>
 
 <code role="code" position="top">
+struct ph_mh_image_hash		
+{		
+	uint8_t *hash;		
+	int len;		
+};
 struct ph_audio_hash
 {
 	uint32_t *hash;
@@ -80,7 +85,18 @@ struct ph_text_hash
 	}
  </destruct>
 </resource>
-
+<resource name="ph_mh_image_hash" payload="ph_mh_image_hash" alloc="no">		
+ <description>		
+  A uint8_t resource		
+ </description>		
+ <destruct>		
+	if(resource)		
+	{		
+		free(resource->hash);		
+		free(resource);		
+	}		
+ </destruct>		
+</resource>
 <resource name="ph_txt_hash" payload="ph_text_hash" alloc="no">
  <description>
   A TxtHashPoint resource
@@ -139,7 +155,28 @@ struct ph_text_hash
 ]]>   
 </code>
   </function>
-
+<function name="ph_mh_imagehash" if="HAVE_IMAGE_HASH">		
+   <proto>resource ph_mh_image_hash ph_mh_imagehash(string file, float alpha=2.0, float level=1.0)</proto>		
+   <summary>Fixed Length MH image hash</summary>		
+   <description>		
+	Marr-Hildreth wavelet based image hash.		
+   </description>		
+   <code>		
+<![CDATA[		
+	int num = 0;		
+	uint8_t *hash = ph_mh_imagehash(file, num, alpha, level);		
+	if (hash)		
+	{		
+		ph_mh_image_hash *h = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));		
+		h->hash = hash;		
+		h->len = num;		
+		return_res = h;		
+	}		
+	else		
+		RETURN_FALSE;		
+]]>		
+    </code>		
+</function>
 <function name="ph_texthash">
    <proto>resource ph_txt_hash ph_texthash(string file)</proto>
    <summary>pHash cyclic text hash</summary>
