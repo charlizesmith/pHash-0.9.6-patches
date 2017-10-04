@@ -17,7 +17,11 @@
 #include "php_pHash.h"
 
 #if HAVE_PHASH
-
+struct ph_mh_image_hash		
+{		
+	uint8_t *hash;		
+	int len;		
+};
 struct ph_audio_hash
 {
 	uint32_t *hash;
