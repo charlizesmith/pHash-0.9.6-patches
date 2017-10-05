@@ -117,6 +117,7 @@ ZEND_END_ARG_INFO()
 #else /* PHP 4.x */
 #define ph_mh_imagehash_arg_info NULL
 #endif   
+#endif
    
 #if HAVE_AUDIO_HASH
 PHP_FUNCTION(ph_audiohash);
