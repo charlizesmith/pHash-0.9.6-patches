@@ -315,6 +315,7 @@ PHP_FUNCTION(ph_dct_imagehash)
 
 /* {{{ proto long ph_image_hash ph_mh_imagehash(string file)
   pHash mh image hash */
+
 PHP_FUNCTION(ph_mh_imagehash)
 {	
 	ph_mh_image_hash * return_res;
@@ -338,7 +339,8 @@ PHP_FUNCTION(ph_mh_imagehash)
 		ph_mh_image_hash *h = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));		
 		h->hash = hash;		
 		h->len = num;
-		return_res = h;	
+		for (int i = 0; i < num; i++)
+    		printf("%02x", hash[i]);
 	}		
 	else		
 		RETURN_FALSE;
