@@ -177,6 +177,30 @@ struct ph_text_hash
 ]]>		
     </code>		
 </function>
+<function name="ph_mh_imagehash_to_array" if="HAVE_IMAGE_HASH">
+   <proto>array ph_mh_imagehash_to_array(resource ph_mh_image_hash h)</proto>
+   <summary>Conversion of fixed Length MH image hash to 72-bytes array.</summary>
+   <description>
+	Returns fixed Length MH image hash represented as array of 72 bytes.
+   </description>
+   <code>
+<![CDATA[
+	if (h)
+	{
+		array_init(return_value);
+		for (int i = 0; i < h->len; i++)
+		{
+			add_next_index_long(return_value, *(h->hash + i));
+		}
+	}
+	else
+	{
+		RETURN_FALSE;
+	}
+]]>
+   </code>
+</function>	
+	
 <function name="ph_texthash">
    <proto>resource ph_txt_hash ph_texthash(string file)</proto>
    <summary>pHash cyclic text hash</summary>
