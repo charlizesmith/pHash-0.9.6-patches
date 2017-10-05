@@ -330,7 +330,7 @@ PHP_FUNCTION(ph_mh_imagehash)
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &file, &file_len) == FAILURE) {
 		return;
 	}
-	uint8_t *hash = ph_mh_imagehash(file, *hash);
+	uint8_t *hash = ph_mh_imagehash(file, *hash,1.0,2.0);
 	int ret = (uint8_t *)malloc(sizeof(uint8_t));
 	if(ret != 0) {
 		free(hash);
