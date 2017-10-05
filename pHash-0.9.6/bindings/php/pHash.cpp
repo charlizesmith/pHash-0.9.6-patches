@@ -322,7 +322,9 @@ PHP_FUNCTION(ph_mh_imagehash)
 
 	const char * file = NULL;
 	int file_len = 0;
-	
+	char buffer [64];
+	int n;
+	char *str;
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &file, &file_len) == FAILURE) {
 		return;
 	}
@@ -335,8 +337,11 @@ PHP_FUNCTION(ph_mh_imagehash)
 	{		
 		ph_mh_image_hash *h = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));		
 		h->hash = hash;		
-		h->len = num;		
-		return_res = h;		
+		h->len = num;			
+		n = sprintf(buffer, "%016llx", *h);
+		str = estrdup(buffer);
+		free(h);
+		RETURN_STRING(str, 0);
 	}		
 	else		
 		RETURN_FALSE;
