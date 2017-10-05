@@ -317,7 +317,7 @@ PHP_FUNCTION(ph_dct_imagehash)
   pHash mh image hash */
 PHP_FUNCTION(ph_mh_imagehash)
 {	
-	ph_mh_image_hash return_res;
+	ph_mh_image_hash * return_res;
 	long return_res_id = -1;
 
 	const char * file = NULL;
@@ -338,12 +338,7 @@ PHP_FUNCTION(ph_mh_imagehash)
 		ph_mh_image_hash *h = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));		
 		h->hash = hash;		
 		h->len = num;
-		/*RETURN_STRING(hash, 0);*/
-		return_res = hash;	
-		/*n = sprintf(buffer, "%016llx", *hash);
-		str = estrdup(buffer);
-		free(hash);
-		RETURN_STRING(str, 0);*/
+		return_res = h;	
 	}		
 	else		
 		RETURN_FALSE;
