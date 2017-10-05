@@ -330,7 +330,7 @@ PHP_FUNCTION(ph_mh_imagehash)
 		return;
 	}
 	
-	int num = 0;
+	int num = 72;
 	int alpha = 2;
 	int level = 1;
 	uint8_t *hash = ph_mh_imagehash(file, num, alpha, level);		
@@ -340,7 +340,12 @@ PHP_FUNCTION(ph_mh_imagehash)
 		h->hash = hash;		
 		h->len = num;
 		for (int i = 0; i < num; i++)
-    		printf("%02x", hash[i]);
+		{
+		n = sprintf(buffer, "%02x", *h);
+		str = estrdup(buffer);
+		}
+		free(h);
+		RETURN_STRING(str, 0);
 	}		
 	else		
 		RETURN_FALSE;
