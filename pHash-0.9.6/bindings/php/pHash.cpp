@@ -315,33 +315,28 @@ PHP_FUNCTION(ph_dct_imagehash)
 /* {{{ proto long ph_image_hash ph_mh_imagehash(string file)
   pHash mh image hash */
 PHP_FUNCTION(ph_mh_imagehash)
-{
+{	
 	uint8_t * return_res;
-	long return_res_id = -1;
-
 	const char * file = NULL;
 	int file_len = 0;
 	char buffer [64];
 	int n;
 	char *str;
-
-
-
+	int hashlen = 0;
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &file, &file_len) == FAILURE) {
 		return;
 	}
-	
-	 uint8_t *hash= (uint8_t *)malloc(sizeof(uint8_t));
-	 hash = ph_mh_imagehash(file, *hash,2.0,1.0);
-	
+	 /*uint8_t *hash= (uint8_t *)malloc(sizeof(uint8_t));*/
+	uint8_t* hash = ph_mh_imagehash(file, hashlen,2.0,1.0);
 	if(hash != NULL) {
 		free(hash);
 		RETURN_FALSE;
 	} else {
-		n = sprintf(buffer, "%016llx", *hash);
+		RETURN_FALSE;
+		/*n = sprintf(buffer, "%016llx", *hash);
 		str = estrdup(buffer);
 		free(hash);
-		RETURN_STRING(str, 0);
+		RETURN_STRING(str, 0);*/
 	}
 }
 /* }}} ph_mh_imagehash */
