@@ -73,12 +73,12 @@ extern "C" void ph_image_hash_dtor(zend_rsrc_list_entry *rsrc TSRMLS_DC)
 		free(resource);
 	}
 	
-	uint8_t * resource = (uint8_t *)(rsrc->ptr);
+/* uint8_t * resource = (uint8_t *)(rsrc->ptr);
 
 	if(resource)
 	{
 		free(resource);
-	}
+	} */
 }
 
 int le_ph_audio_hash;
