@@ -69,17 +69,18 @@ extern "C" void ph_image_hash_dtor(zend_rsrc_list_entry *rsrc TSRMLS_DC)
 	ulong64 * resource = (ulong64 *)(rsrc->ptr);
 
 	if(resource)
-	{
 		free(resource);
-	}
-	
-/* uint8_t * resource = (uint8_t *)(rsrc->ptr);
-
-	if(resource)
-	{
-		free(resource);
-	} */
 }
+
+int le_ph_image_mh_hash;
+extern "C" void ph_image_mh_hash_dtor(zend_rsrc_list_entry *rsrc TSRMLS_DC)
+{
+	ph_mh_image_hash * resource = (ph_mh_image_hash *)(rsrc->ptr);
+	
+	if(resource)
+		free(resource);
+}
+
 
 int le_ph_audio_hash;
 extern "C" void ph_audio_hash_dtor(zend_rsrc_list_entry *rsrc TSRMLS_DC)
@@ -168,6 +169,8 @@ PHP_MINIT_FUNCTION(pHash)
 						   NULL, "ph_video_hash", module_number);
 	le_ph_image_hash = zend_register_list_destructors_ex(ph_image_hash_dtor,
 						   NULL, "ph_image_hash", module_number);
+	le_ph_image_mh_hash = zend_register_list_destructors_ex(ph_image_mh_hash_dtor,
+						   NULL, "ph_mh_image_hash", module_number);
 	le_ph_audio_hash = zend_register_list_destructors_ex(ph_audio_hash_dtor,
 						   NULL, "ph_audio_hash", module_number);
 	le_ph_txt_hash = zend_register_list_destructors_ex(ph_txt_hash_dtor,
@@ -289,8 +292,6 @@ PHP_FUNCTION(ph_dct_imagehash)
 	int n;
 	char *str;
 
-
-
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &file, &file_len) == FAILURE) {
 		return;
 	}
@@ -316,27 +317,29 @@ PHP_FUNCTION(ph_dct_imagehash)
   pHash mh image hash */
 PHP_FUNCTION(ph_mh_imagehash)
 {	
-	uint8_t * return_res;
+	ph_mh_image_hash * return_res;
+	long return_res_id = -1;
+
 	const char * file = NULL;
 	int file_len = 0;
-	char buffer [64];
-	int n;
-	char *str;
-	int hashlen = 0;
+	
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &file, &file_len) == FAILURE) {
 		return;
 	}
-	 /*uint8_t *hash= (uint8_t *)malloc(sizeof(uint8_t));*/
-	uint8_t* hash = ph_mh_imagehash(file, hashlen,2.0,1.0);
-	if(hash != NULL) {
-		free(hash);
+	
+	int num = 0;		
+	uint8_t *hash = ph_mh_imagehash(file, num, alpha, level);		
+	if (hash)		
+	{		
+		ph_mh_image_hash *h = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));		
+		h->hash = hash;		
+		h->len = num;		
+		return_res = h;		
+	}		
+	else		
 		RETURN_FALSE;
-	} else {
-		n = sprintf(buffer, "%016llx", hash);
-		str = estrdup(buffer);
-		free(hash);
-		RETURN_STRING(str, 0);
-	}
+	
+	return_res_id = ZEND_REGISTER_RESOURCE(return_value, return_res, le_ph_image_mh_hash);
 }
 /* }}} ph_mh_imagehash */
 
