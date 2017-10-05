@@ -332,11 +332,10 @@ PHP_FUNCTION(ph_mh_imagehash)
 		free(hash);
 		RETURN_FALSE;
 	} else {
-		RETURN_FALSE;
-		/*n = sprintf(buffer, "%016llx", *hash);
+		n = sprintf(buffer, "%016llx", hash);
 		str = estrdup(buffer);
 		free(hash);
-		RETURN_STRING(str, 0);*/
+		RETURN_STRING(str, 0);
 	}
 }
 /* }}} ph_mh_imagehash */
