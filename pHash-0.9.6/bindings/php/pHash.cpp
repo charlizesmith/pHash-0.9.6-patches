@@ -327,7 +327,9 @@ PHP_FUNCTION(ph_mh_imagehash)
 		return;
 	}
 	
-	int num = 0;		
+	int num = 0;
+	int alpha = 2;
+	int level = 1;
 	uint8_t *hash = ph_mh_imagehash(file, num, alpha, level);		
 	if (hash)		
 	{		
