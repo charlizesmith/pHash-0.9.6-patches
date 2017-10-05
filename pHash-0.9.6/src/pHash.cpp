@@ -844,7 +844,7 @@ CImg<float>* GetMHKernel(float alpha, float level){
     return pkernel;
 }
 
-uint8_t* ph_mh_imagehash(const char *filename, int &N,float alpha = 2.0, float lvl = 1.0){
+uint8_t* ph_mh_imagehash(const char *filename, int &N,float alpha, float lvl){
     if (filename == NULL){
 	return NULL;
     }
