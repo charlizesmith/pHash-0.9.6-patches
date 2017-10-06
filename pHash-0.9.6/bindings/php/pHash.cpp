@@ -338,8 +338,8 @@ PHP_FUNCTION(ph_mh_imagehash)
 	if (hash)		
 	{	
 		ph_mh_image_hash *h = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));
-		int ret = ph_bitcount8(hash);
-		return ret; 
+		return_res = ph_bitcount8(*h);
+		
 		/*ph_mh_image_hash *h = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));		
 		h->hash = hash;		
 		h->len = num;
