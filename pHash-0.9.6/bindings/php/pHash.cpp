@@ -330,15 +330,13 @@ PHP_FUNCTION(ph_mh_imagehash)
 	int num = 0;
 	int alpha = 2;
 	int level = 1;
-	double dist = 0;
-	ph_mh_image_hash *hash = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));
-	uint8_t hash = ph_mh_imagehash(file, num, alpha, level);
+	uint8_t *hash = ph_mh_imagehash(file, num, alpha, level);	
 	if (hash)		
 	{	
-		for (int i=0;i<72;i++){
-		dist = dist + (double)ph_bitcount8(hash);	
-		}
-		return_dist;
+		ph_mh_image_hash *h = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));		
+		h->hash = hash;		
+		h->len = num;		
+		return_res = h;	
 	}		
 	else		
 		RETURN_FALSE;
