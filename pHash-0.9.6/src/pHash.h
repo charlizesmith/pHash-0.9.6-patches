@@ -341,6 +341,9 @@ DP** ph_read_imagehashes(const char *dirname,int capacity, int &count);
 *   /return uint8_t array
 **/
 uint8_t* ph_mh_imagehash(const char *filename, int &N, float alpha=2.0f, float lvl = 1.0f);
+	
+char * ph_mh_imagehash_to_array(uint8_t &h);	
+	
 #endif
 /** /brief count number bits set in given byte
 *   /param val - uint8_t byte value
