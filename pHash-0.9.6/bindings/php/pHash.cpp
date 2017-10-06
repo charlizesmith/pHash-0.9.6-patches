@@ -342,7 +342,7 @@ PHP_FUNCTION(ph_mh_imagehash)
 		h->len = num;
 		for (int i = 0; i < h->len; i++)
 		{
-			 buf_ptr + = sprintf(buffer, "%02x", *(h->hash + i));
+			 buf_ptr += sprintf(buffer, "%02x", *(h->hash + i));
 			
 		}
 		n = sprintf(buf_ptr,"\n");
