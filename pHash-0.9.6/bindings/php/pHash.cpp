@@ -335,11 +335,12 @@ PHP_FUNCTION(ph_mh_imagehash)
 	int level = 1;
 	char buf_ptr;
 	uint8_t *hash = ph_mh_imagehash(file, num, alpha, level);
-	int h = ph_bitcount8(*hash);
-	return_res = h;
-	/*if (hash)		
-	{		
-		ph_mh_image_hash *h = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));		
+	if (hash)		
+	{	
+		ph_mh_image_hash *h = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));
+		int ret = ph_bitcount8(hash);
+		return ret; 
+		/*ph_mh_image_hash *h = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));		
 		h->hash = hash;		
 		h->len = num;
 		for (int i = 0; i < h->len; i++)
@@ -349,10 +350,10 @@ PHP_FUNCTION(ph_mh_imagehash)
 		}
 		str = estrdup(buffer);
 		free(h);
-		RETURN_STRING(str, 0);
+		RETURN_STRING(str, 0);*/
 	}		
 	else		
-		RETURN_FALSE;*/
+		RETURN_FALSE;
 	
 	/*return_res_id = ZEND_REGISTER_RESOURCE(return_value, return_res, le_ph_image_mh_hash);*/
 }
