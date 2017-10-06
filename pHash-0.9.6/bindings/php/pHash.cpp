@@ -335,14 +335,15 @@ PHP_FUNCTION(ph_mh_imagehash)
 	{	
 		ph_mh_image_hash *h = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));		
 		h->hash = hash;		
-		h->len = num;		
-		return_res = h;	
+		h->len = num;	
+		return_res = ph_mh_imagehash_to_array(*h);	
 	}		
 	else		
 		RETURN_FALSE;
 	
 	/*return_res_id = ZEND_REGISTER_RESOURCE(return_value, return_res, le_ph_image_mh_hash);*/
 }
+
 /* }}} ph_mh_imagehash */
 
 #endif /* HAVE_IMAGE_HASH */
