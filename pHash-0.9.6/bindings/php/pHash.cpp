@@ -339,8 +339,11 @@ PHP_FUNCTION(ph_mh_imagehash)
 		ph_mh_image_hash *h = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));		
 		h->hash = hash;		
 		h->len = num;
-		n = sprintf(buffer, "%02x", *h);
-		str = estrdup(buffer);
+		for (int i = 0; i < h->len; i++)
+		{
+			n = sprintf(buffer, "%02x", *(h->hash + i));
+			str = estrdup(buffer);
+		}
 		free(h);
 		RETURN_STRING(str, 0);
 	}		
