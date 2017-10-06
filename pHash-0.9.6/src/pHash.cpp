@@ -901,7 +901,7 @@ uint8_t* ph_mh_imagehash(const char *filename, int &N,float alpha, float lvl){
     return hash;
 }
 
-char * ph_mh_imagehash_to_array(resource h){
+char * ph_mh_imagehash_to_array(uint8_t &h){
 	if (h)
 	{
 		array_init(return_value);
