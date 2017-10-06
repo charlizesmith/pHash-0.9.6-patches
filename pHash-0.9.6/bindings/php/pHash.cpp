@@ -321,27 +321,31 @@ PHP_FUNCTION(ph_mh_imagehash)
 	ph_mh_image_hash * return_res;
 	long return_res_id = -1;
 
-	const char * file = NULL;
-	int file_len = 0;
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &file, &file_len) == FAILURE) {
-		return;
-	}
-	
+ 	const char * file = NULL;
+ 	int file_len = 0;
+	char buffer [64];
+	int n;
+	char *str;
+	int hashlen = 0;
+ 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &file, &file_len) == FAILURE) {
+ 		return;
+ 	}
 	int num = 0;
 	int alpha = 2;
 	int level = 1;
-	uint8_t *hash = ph_mh_imagehash(file, num, alpha, level);	
+	uint8_t *hash = ph_mh_imagehash(file, num, alpha, level);		
+
 	if (hash)		
-	{	
+	{		
 		ph_mh_image_hash *h = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));		
 		h->hash = hash;		
 		h->len = num;		
-		return_res = h;	
+		return_res = h;		
 	}		
 	else		
-		RETURN_FALSE;
+ 		RETURN_FALSE;
 	
-	/*return_res_id = ZEND_REGISTER_RESOURCE(return_value, return_res, le_ph_image_mh_hash);*/
+	return_res_id = ZEND_REGISTER_RESOURCE(return_value, return_res, le_ph_image_mh_hash);
 }
 
 /* }}} ph_mh_imagehash */
