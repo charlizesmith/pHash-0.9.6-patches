@@ -335,7 +335,7 @@ PHP_FUNCTION(ph_mh_imagehash)
 	uint8_t hash = ph_mh_imagehash(file, num, alpha, level);
 	if (hash)		
 	{	
-		for (int i=0;i<num;i++){
+		for (int i=0;i<72;i++){
 		dist = dist + (double)ph_bitcount8(hash);	
 		}
 		return_dist;
