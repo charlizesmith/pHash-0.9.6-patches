@@ -336,7 +336,7 @@ PHP_FUNCTION(ph_mh_imagehash)
 		ph_mh_image_hash *h = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));		
 		h->hash = hash;		
 		h->len = num;	
-		return_res = ph_mh_imagehash_to_array(*h);	
+		return_res = h;	
 	}		
 	else		
 		RETURN_FALSE;
@@ -345,6 +345,21 @@ PHP_FUNCTION(ph_mh_imagehash)
 }
 
 /* }}} ph_mh_imagehash */
+PHP_FUNCTION(ph_mh_imagehash_to_array)
+{
+	if (h)
+	{
+		array_init(return_value);
+		for (int i = 0; i < h->len; i++)
+		{
+			add_next_index_long(return_value, *(h->hash + i));
+		}
+	}
+	else
+	{
+		RETURN_FALSE;
+	}
+}
 
 #endif /* HAVE_IMAGE_HASH */
 
