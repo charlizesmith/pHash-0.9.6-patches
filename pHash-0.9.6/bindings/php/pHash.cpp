@@ -337,20 +337,19 @@ PHP_FUNCTION(ph_mh_imagehash)
 	uint8_t *hash = ph_mh_imagehash(file, num, alpha, level);
 	if (hash)		
 	{	
-		ph_mh_image_hash *h = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));
-		return_res = ph_bitcount8(*h);
-		
-		/*ph_mh_image_hash *h = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));		
+		ph_mh_image_hash *h = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));		
 		h->hash = hash;		
 		h->len = num;
 		for (int i = 0; i < h->len; i++)
 		{
-			 buf_ptr += sprintf(buffer, "%l", *(h->hash + i));
+			/*buf_ptr += sprintf(buffer, "%x", *(h->hash + i));*/
+			buf_ptr += i;
 			
 		}
+		n = sprintf(buf_ptr,"\n");
 		str = estrdup(buffer);
 		free(h);
-		RETURN_STRING(str, 0);*/
+		RETURN_STRING(str, 0);
 	}		
 	else		
 		RETURN_FALSE;
