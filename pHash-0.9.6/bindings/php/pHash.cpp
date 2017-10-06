@@ -330,13 +330,15 @@ PHP_FUNCTION(ph_mh_imagehash)
 	int num = 0;
 	int alpha = 2;
 	int level = 1;
-	uint8_t *hash = ph_mh_imagehash(file, num, alpha, level);
+	double dist = 0;
+	ph_mh_image_hash *hash = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));
+	uint8_t hash = ph_mh_imagehash(file, num, alpha, level);
 	if (hash)		
 	{	
-		ph_mh_image_hash *h = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));		
-		h->hash = hash;		
-		h->len = num;	
-		return_res = h;	
+		for (int i=0;i<num;i++){
+		dist = dist + (double)ph_bitcount8(hash);	
+		}
+		return_dist;
 	}		
 	else		
 		RETURN_FALSE;
@@ -345,21 +347,6 @@ PHP_FUNCTION(ph_mh_imagehash)
 }
 
 /* }}} ph_mh_imagehash */
-PHP_FUNCTION(ph_mh_imagehash_to_array)
-{
-	if (h)
-	{
-		array_init(return_value);
-		for (int i = 0; i < h->len; i++)
-		{
-			add_next_index_long(return_value, *(h->hash + i));
-		}
-	}
-	else
-	{
-		RETURN_FALSE;
-	}
-}
 
 #endif /* HAVE_IMAGE_HASH */
 
