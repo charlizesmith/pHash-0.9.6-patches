@@ -900,21 +900,6 @@ uint8_t* ph_mh_imagehash(const char *filename, int &N,float alpha, float lvl){
 
     return hash;
 }
-
-char * ph_mh_imagehash_to_array(uint8_t &h){
-	if (h)
-	{
-		array_init(return_value);
-		for (int i = 0; i < h->len; i++)
-		{
-			add_next_index_long(return_value, *(h->hash + i));
-		}
-	}
-	else
-	{
-		RETURN_FALSE;
-	}
-}
 #endif
 
 char** ph_readfilenames(const char *dirname,int &count){
