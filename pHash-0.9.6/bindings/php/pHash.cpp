@@ -333,6 +333,7 @@ PHP_FUNCTION(ph_mh_imagehash)
 	int num = 0;
 	int alpha = 2;
 	int level = 1;
+	char* buf_ptr;
 	uint8_t *hash = ph_mh_imagehash(file, num, alpha, level);		
 	if (hash)		
 	{		
@@ -341,9 +342,11 @@ PHP_FUNCTION(ph_mh_imagehash)
 		h->len = num;
 		for (int i = 0; i < h->len; i++)
 		{
-			n = sprintf(buffer, "%02x", *(h->hash + i));
-			str = estrdup(buffer);
+			 buf_ptr + = sprintf(buffer, "%02x", *(h->hash + i));
+			
 		}
+		n = sprintf(buf_ptr,"\n");
+		str = estrdup(buffer);
 		free(h);
 		RETURN_STRING(str, 0);
 	}		
