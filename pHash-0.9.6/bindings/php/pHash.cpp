@@ -78,6 +78,7 @@ extern "C" void ph_image_mh_hash_dtor(zend_rsrc_list_entry *rsrc TSRMLS_DC)
 	ph_mh_image_hash * resource = (ph_mh_image_hash *)(rsrc->ptr);
 	
 	if(resource)
+		free(resource->hash);
 		free(resource);
 }
 
@@ -169,7 +170,7 @@ PHP_MINIT_FUNCTION(pHash)
 						   NULL, "ph_video_hash", module_number);
 	le_ph_image_hash = zend_register_list_destructors_ex(ph_image_hash_dtor,
 						   NULL, "ph_image_hash", module_number);
-	le_ph_image_mh_hash = zend_register_list_destructors_ex(ph_image_mh_hash_dtor,
+	le_ph_mh_image_hash = zend_register_list_destructors_ex(ph_image_mh_hash_dtor,
 						   NULL, "ph_mh_image_hash", module_number);
 	le_ph_audio_hash = zend_register_list_destructors_ex(ph_audio_hash_dtor,
 						   NULL, "ph_audio_hash", module_number);
