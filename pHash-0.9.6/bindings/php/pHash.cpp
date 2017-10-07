@@ -78,8 +78,10 @@ extern "C" void ph_image_mh_hash_dtor(zend_rsrc_list_entry *rsrc TSRMLS_DC)
 	ph_mh_image_hash * resource = (ph_mh_image_hash *)(rsrc->ptr);
 	
 	if(resource)
+	{
 		free(resource->hash);
 		free(resource);
+	}
 }
 
 
@@ -330,10 +332,6 @@ PHP_FUNCTION(ph_mh_imagehash)
 
  	const char * file = NULL;
  	int file_len = 0;
-	char buffer [64];
-	int n;
-	char *str;
-	int hashlen = 0;
  	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &file, &file_len) == FAILURE) {
  		return;
  	}
