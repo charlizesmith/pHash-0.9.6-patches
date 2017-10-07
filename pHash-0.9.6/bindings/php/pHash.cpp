@@ -374,16 +374,12 @@ PHP_FUNCTION(ph_mh_imagehash_to_array)
         }
         ZEND_FETCH_RESOURCE(h, ph_mh_image_hash *, &h_res, h_resid, "ph_mh_image_hash", le_ph_mh_image_hash);
 
-
-
-        array_init(return_value);
-
         if (h)
         {
                 array_init(return_value);
-                for (int i = 0; i < h->len; i++)
+		for (int i = 0; i < h->len; i++)
                 {
-                        add_next_index_long(return_value, *h->hash);
+                        add_next_index_double(return_value, *(h->hash + i));
                 }
         }
         else
