@@ -72,7 +72,7 @@ extern "C" void ph_image_hash_dtor(zend_rsrc_list_entry *rsrc TSRMLS_DC)
 		free(resource);
 }
 
-int le_ph_image_mh_hash;
+int le_ph_mh_image_hash;
 extern "C" void ph_image_mh_hash_dtor(zend_rsrc_list_entry *rsrc TSRMLS_DC)
 {
 	ph_mh_image_hash * resource = (ph_mh_image_hash *)(rsrc->ptr);
