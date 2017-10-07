@@ -368,19 +368,24 @@ PHP_FUNCTION(ph_mh_imagehash_to_array)
 	char buffer [64];
 	int n;
 	char *str;
-        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "r", &h_res) == FAILURE) {
+        /*if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "r", &h_res) == FAILURE) {
                 return;
-        }
-        /*ZEND_FETCH_RESOURCE(h, ph_mh_image_hash *, &h_res, h_resid, "ph_mh_image_hash", le_ph_mh_image_hash);*/
+        }*/
+        ZEND_FETCH_RESOURCE(h, ph_mh_image_hash *, &h_res, h_resid, "ph_mh_image_hash", le_ph_mh_image_hash);
+	array_init(return_value);
 
-	for (int i = 0; i < h->len; i++)
+	if (h)
 	{
-		/*add_next_index_double(return_value, *(h->hash + i));*/
-		n += sprintf(buffer, "%016llx", *(h->hash + i));
+		array_init(return_value);
+		for (int i = 0; i < h->len; i++)
+		{
+			add_get_index_string(return_value, *(h->hash + i));
+		}
 	}
-	str = estrdup(buffer);
-	free(h);
-	RETURN_STRING(str, 0);
+	else
+	{
+		RETURN_FALSE;
+	}
 	
 }
 /* }}} ph_mh_imagehash_to_array */
