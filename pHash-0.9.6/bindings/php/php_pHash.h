@@ -144,6 +144,17 @@ ZEND_END_ARG_INFO()
 #endif
 
 #endif /* HAVE_IMAGE_HASH */
+#if HAVE_IMAGE_HASH
+PHP_FUNCTION(ph_mh_imagehash_to_array);
+#if (PHP_MAJOR_VERSION >= 5)
+ZEND_BEGIN_ARG_INFO_EX(ph_mh_imagehash_to_array_arg_info, ZEND_SEND_BY_VAL, ZEND_RETURN_VALUE, 1)
+  ZEND_ARG_INFO(0, h)
+ZEND_END_ARG_INFO()
+#else /* PHP 4.x */
+#define ph_mh_imagehash_to_array_arg_info NULL
+#endif
+
+#endif /* HAVE_IMAGE_HASH */
 #if HAVE_VIDEO_HASH
 PHP_FUNCTION(ph_video_dist);
 #if (PHP_MAJOR_VERSION >= 5)
