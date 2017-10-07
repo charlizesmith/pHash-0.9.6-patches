@@ -362,8 +362,38 @@ PHP_FUNCTION(ph_mh_imagehash)
   Conversion of fixed Length MH image hash to 72-bytes array. */
 PHP_FUNCTION(ph_mh_imagehash_to_array)
 {
-        
-	
+        zval * h_res = NULL;
+	int h_resid = -1;
+	ph_mh_image_hash * h;
+	char buffer [64];
+	int n;
+	char *str;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "r", &h_res) == FAILURE) {
+		return;
+	}
+	ZEND_FETCH_RESOURCE(h, ph_mh_image_hash *, &h_res, h_resid, "ph_mh_image_hash", le_ph_mh_image_hash);
+
+
+
+	array_init(return_value);
+
+	if (h)
+	{
+		array_init(return_value);
+		for (int i = 0; i < h->len; i++)
+		{
+			/*add_next_index_long(return_value, *(h->hash + i));*/
+			n += sprintf(buffer, "%016llx", *(h->hash + i));
+		}
+		str = sprintf(n, "\n");
+		free(hash);
+		RETURN_STRING(str, 0);
+	}
+	else
+	{
+		RETURN_FALSE;
+	}
 }
 /* }}} ph_mh_imagehash_to_array */
 
