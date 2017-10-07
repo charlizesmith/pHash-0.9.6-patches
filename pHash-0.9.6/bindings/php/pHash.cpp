@@ -383,7 +383,7 @@ PHP_FUNCTION(ph_mh_imagehash_to_array)
                 array_init(return_value);
                 for (int i = 0; i < h->len; i++)
                 {
-                        add_next_index_long(return_value, *(h->hash + i));
+                        add_next_index_long(return_value, *h->hash);
                 }
         }
         else
