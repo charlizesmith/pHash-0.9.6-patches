@@ -116,8 +116,10 @@ zend_function_entry pHash_functions[] = {
 #endif /* HAVE_VIDEO_HASH */
 #if HAVE_IMAGE_HASH
 	PHP_FE(ph_dct_imagehash    , ph_dct_imagehash_arg_info)
-	PHP_FE(ph_mh_imagehash    , ph_mh_imagehash_arg_info)
 #endif /* HAVE_IMAGE_HASH */
+#if HAVE_IMAGE_HASH
+	PHP_FE(ph_mh_imagehash     , ph_mh_imagehash_arg_info)
+#endif /* HAVE_IMAGE_HASH */		
 	PHP_FE(ph_texthash         , ph_texthash_arg_info)
 #if HAVE_AUDIO_HASH
 	PHP_FE(ph_audiohash        , ph_audiohash_arg_info)
@@ -128,6 +130,10 @@ zend_function_entry pHash_functions[] = {
 #if HAVE_VIDEO_HASH
 	PHP_FE(ph_video_dist       , ph_video_dist_arg_info)
 #endif /* HAVE_VIDEO_HASH */
+/* HAVE_IMAGE_HASH */
+#if HAVE_IMAGE_HASH
+	PHP_FE(ph_mh_imagehash_to_array, ph_mh_imagehash_to_array_arg_info)
+#endif /* HAVE_IMAGE_HASH */
 #if HAVE_AUDIO_HASH
 	PHP_FE(ph_audio_dist       , ph_audio_dist_arg_info)
 #endif /* HAVE_AUDIO_HASH */
