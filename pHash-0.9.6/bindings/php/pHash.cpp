@@ -374,7 +374,7 @@ PHP_FUNCTION(ph_mh_imagehash_to_array)
 	if (h)
 	{
 		array_init(return_value);
-		for (size_t pos = 0; pos * 3 < h->len; pos++)
+		for (int pos = 0; pos * 3 < h->len; pos++)
 		{
 			int value;
 		    	int scanned = sscanf(h->hash[pos] + pos * 3, "%x", &value);
