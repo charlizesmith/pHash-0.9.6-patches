@@ -343,7 +343,7 @@ PHP_FUNCTION(ph_mh_imagehash)
 	if (hash)		
 	{	
 		scanf("%33s", hash);
-		 for(int i = 0; i < strlen((char*)hash; i++) {
+		 for(int i = 0; i < strlen((char*)hash); i++) {
 			printf("0x%02x, ", hash[i]);
 		  }
 		printf("\n");
@@ -388,12 +388,8 @@ PHP_FUNCTION(ph_mh_imagehash_to_array)
 		array_init(return_value);
 		for (int i = 0; i < h->len; i++)
 		{
-			/*add_next_index_long(return_value, *(h->hash + i));*/
-			n += sprintf(buffer, "%016llx", *(h->hash + i));
+			add_next_index_long(return_value, *(h->hash + i));
 		}
-		str = sprintf(n, "\n");
-		free(h);
-		RETURN_STRING(str, 0);
 	}
 	else
 	{
