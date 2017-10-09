@@ -338,15 +338,16 @@ PHP_FUNCTION(ph_mh_imagehash)
 	int num = 0;
 	int alpha = 2;
 	int level = 1;
+	char * str;
 	uint8_t *hash = ph_mh_imagehash(file, num, alpha, level);		
 
 	if (hash)		
 	{	
 		scanf("%33s", hash);
 		 for(int i = 0; i < strlen((char*)hash); i++) {
-			printf("0x%02x, ", hash[i]);
+			str +=printf("0x%02x, ", hash[i]);
 		  }
-		printf("\n");
+		RETURN_STRING(str, 0);
 		/*ph_mh_image_hash *h = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));		
 		h->hash = hash;		
 		h->len = num;		
