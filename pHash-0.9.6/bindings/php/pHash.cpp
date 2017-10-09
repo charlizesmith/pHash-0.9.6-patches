@@ -370,25 +370,13 @@ PHP_FUNCTION(ph_mh_imagehash_to_array)
 	}
 	ZEND_FETCH_RESOURCE(h, ph_mh_image_hash *, &h_res, h_resid, "ph_mh_image_hash", le_ph_mh_image_hash);
 	array_init(return_value);
-	uint8_t result[h->len]; 
 	if (h)
 	{
 		array_init(return_value);
-		for (int pos = 0; pos * 3 < h->len; pos++)
+		for (int i = 0; i < h->len; i++)
 		{
-			int value;
-		    	int scanned = sscanf(h->hash[pos] + pos * 3, "%x", &value);
-		    	if(scanned == 1) {
-				result[pos] = value;
-				pos ++;
-		    	} else {
-				fprintf(stderr, "Invalid hex number at %zu", pos * 3);
-				break;
-		    	}
 			/*add_next_index_long(return_value, *(h->hash + i));*/
 		}
-		
-		result;
 	}
 	else
 	{
