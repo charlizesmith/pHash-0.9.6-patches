@@ -350,7 +350,7 @@ PHP_FUNCTION(ph_mh_imagehash)
 	else		
  		RETURN_FALSE;
 	
-	/*return_res_id = ZEND_REGISTER_RESOURCE(return_value, return_res, le_ph_mh_image_hash);*/
+	return_res_id = ZEND_REGISTER_RESOURCE(return_value, return_res, le_ph_mh_image_hash);
 }
 
 /* }}} ph_mh_imagehash */
