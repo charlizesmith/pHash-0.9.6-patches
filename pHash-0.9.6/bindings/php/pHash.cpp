@@ -375,14 +375,14 @@ PHP_FUNCTION(ph_mh_imagehash_to_array)
 	ZEND_FETCH_RESOURCE(h, ph_mh_image_hash *, &h_res, h_resid, "ph_mh_image_hash", le_ph_mh_image_hash);
 	if (h)
 	{
-		/*array_init(return_value);*/
+		array_init(return_value);
 		for (int i = 0; i < strlen((char*)h->hash); i++)
 		{
 			scanf("%33s", h->hash);
 			str +=printf("0x%02x, ", h->hash[i]);
 			/*add_next_index_long(return_value, *(h->hash + i));*/
 		}
-		RETURN_STRING(str, 0);
+		printf(str,"\n");
 	}
 	else
 	{
