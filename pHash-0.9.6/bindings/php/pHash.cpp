@@ -338,20 +338,14 @@ PHP_FUNCTION(ph_mh_imagehash)
 	int num = 0;
 	int alpha = 2;
 	int level = 1;
-	char * str;
 	uint8_t *hash = ph_mh_imagehash(file, num, alpha, level);		
 
 	if (hash)		
 	{	
-		scanf("%33s", hash);
-		 for(int i = 0; i < strlen((char*)hash); i++) {
-			str +=printf("0x%02x, ", hash[i]);
-		  }
-		RETURN_STRING(str, 0);
-		/*ph_mh_image_hash *h = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));		
+		ph_mh_image_hash *h = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));		
 		h->hash = hash;		
 		h->len = num;		
-		return_res = h;	*/	
+		return_res = h;	
 	}		
 	else		
  		RETURN_FALSE;
@@ -379,18 +373,16 @@ PHP_FUNCTION(ph_mh_imagehash_to_array)
 		return;
 	}
 	ZEND_FETCH_RESOURCE(h, ph_mh_image_hash *, &h_res, h_resid, "ph_mh_image_hash", le_ph_mh_image_hash);
-
-
-
-	array_init(return_value);
-
 	if (h)
 	{
-		array_init(return_value);
-		for (int i = 0; i < h->len; i++)
+		/*array_init(return_value);*/
+		for (int i = 0; i < strlen((char*)h->hash); i++)
 		{
-			add_next_index_long(return_value, *(h->hash + i));
+			scanf("%33s", h->hash);
+			str +=printf("0x%02x, ", h->hash[i]);
+			/*add_next_index_long(return_value, *(h->hash + i));*/
 		}
+		RETURN_STRING(str, 0);
 	}
 	else
 	{
