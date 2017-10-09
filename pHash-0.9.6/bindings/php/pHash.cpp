@@ -341,16 +341,21 @@ PHP_FUNCTION(ph_mh_imagehash)
 	uint8_t *hash = ph_mh_imagehash(file, num, alpha, level);		
 
 	if (hash)		
-	{		
-		ph_mh_image_hash *h = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));		
+	{	
+		scanf("%33s", hash);
+		 for(int i = 0; i < strlen((char*)hash; i++) {
+			printf("0x%02x, ", hash[i]);
+		  }
+		printf("\n");
+		/*ph_mh_image_hash *h = (ph_mh_image_hash *)malloc(sizeof(ph_mh_image_hash));		
 		h->hash = hash;		
 		h->len = num;		
-		return_res = h;		
+		return_res = h;	*/	
 	}		
 	else		
  		RETURN_FALSE;
 	
-	return_res_id = ZEND_REGISTER_RESOURCE(return_value, return_res, le_ph_mh_image_hash);
+	/*return_res_id = ZEND_REGISTER_RESOURCE(return_value, return_res, le_ph_mh_image_hash);*/
 }
 
 /* }}} ph_mh_imagehash */
