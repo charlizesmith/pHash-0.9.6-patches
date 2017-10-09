@@ -378,7 +378,7 @@ PHP_FUNCTION(ph_mh_imagehash_to_array)
 		array_init(return_value);
 		for (int i = 0; i < h->len; i++)
 		{
-			n = sprintf(buffer, "%016llx", *(h->hash + i));
+			n = sprintf(buffer, "%x", *(h->hash + i));
 			str = estrdup(buffer);
 			add_index_string(return_value, i, str, i);
 			/*add_next_index_long(return_value, *(h->hash + i));*/
