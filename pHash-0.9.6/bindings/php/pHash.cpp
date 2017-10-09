@@ -365,25 +365,19 @@ PHP_FUNCTION(ph_mh_imagehash_to_array)
         zval * h_res = NULL;
 	int h_resid = -1;
 	ph_mh_image_hash * h;
-	char buffer [64];
-	char *n;
-	char *str;
-
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "r", &h_res) == FAILURE) {
 		return;
 	}
 	ZEND_FETCH_RESOURCE(h, ph_mh_image_hash *, &h_res, h_resid, "ph_mh_image_hash", le_ph_mh_image_hash);
 	array_init(return_value);
+
 	if (h)
 	{
 		array_init(return_value);
-		for (int i = 0; i < strlen((char*)h->hash); i++)
+		for (int i = 0; i < h->len; i++)
 		{
-			scanf("%33s", h->hash);
-			str +=printf("0x%02x, ", h->hash[i]);
-			/*add_next_index_long(return_value, *(h->hash + i));*/
+			add_next_index_long(return_value, *(h->hash + i));
 		}
-		printf(str,"\n");
 	}
 	else
 	{
