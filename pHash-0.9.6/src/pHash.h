@@ -340,7 +340,7 @@ DP** ph_read_imagehashes(const char *dirname,int capacity, int &count);
 *   /param lvl   - int level of scale factor (default = 1)
 *   /return uint8_t array
 **/
-int ph_mh_imagehash(const char *filename, int &N, float alpha=2.0f, float lvl = 1.0f);
+uint8_t* ph_mh_imagehash(const char *filename, int &N, float alpha=2.0f, float lvl = 1.0f);
 		
 #endif
 /** /brief count number bits set in given byte
