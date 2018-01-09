@@ -369,10 +369,18 @@ int ph_dct_imagehash(const char* file,ulong64 &hash){
     if (src.spectrum() == 3){
         img = src.RGBtoYCbCr().channel(0).get_convolve(meanfilter);
     } else if (src.spectrum() == 4){
-	int width = src.width();
-        int height = src.height();
-        /*int depth = img.depth();*/
-	img = src.crop(0,0,0,0,width-1,height-1,0,2).RGBtoYCbCr().channel(0).get_convolve(meanfilter);
+/* New Code for PNG */	
+//	int width = src.width();
+//      int height = src.height();
+//	img = src.crop(0,0,0,0,width-1,height-1,0,2).RGBtoYCbCr().channel(0).get_convolve(meanfilter);
+/* New Code for PNG */	
+
+/* Old Code for PNG */	
+   	int width = img.width();
+        int height = img.height();
+        int depth = img.depth();
+   	img = src.crop(0,0,0,0,width-1,height-1,depth-1,2).RGBtoYCbCr().channel(0).get_convolve(meanfilter);
+/* Old Code for PNG */		    
     } else {
 	img = src.channel(0).get_convolve(meanfilter);
     }
